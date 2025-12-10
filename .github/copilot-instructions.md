@@ -111,3 +111,26 @@ addNumber({ value: 42 }) // Fire and forget
 - Ignore `convex/_generated` in all tooling
 - Strict TypeScript with `noUnusedLocals`, `noUnusedParameters` enabled
 - No emit mode (`noEmit: true`) - Vite handles bundling
+
+## Common Pitfalls
+
+- **Don't edit generated files**: `convex/_generated/*` and `src/routeTree.gen.ts` are auto-regenerated
+- **Import paths in Convex**: Use relative imports (`./`, `../`) not `~/*` alias in `convex/` directory
+- **Mutations vs Queries**: Mutations for writes (transactional), queries for reads (real-time reactive)
+- **Action limitations**: Actions can't directly access database - use `ctx.runQuery()` or `ctx.runMutation()`
+- **Router context**: Must pass `queryClient` to router context for `convexQuery()` to work
+- **CSS imports**: Use `?url` suffix when importing CSS in `__root.tsx` (e.g., `app.css?url`)
+
+## File Naming Conventions
+
+- **Routes**: Use lowercase with hyphens for URLs (`user-profile.tsx` → `/user-profile`)
+- **Components**: PascalCase for React components (`UserProfile.tsx`)
+- **Convex functions**: camelCase exports (`getUserProfile`, not `GetUserProfile`)
+- **Types**: Inferred from Convex schema - avoid manual type definitions when possible
+
+## Debugging Tips
+
+- **Convex logs**: Use `console.log()` in functions - visible in terminal and Convex dashboard
+- **Query invalidation**: TanStack Query auto-updates on Convex mutations via `@convex-dev/react-query`
+- **Type errors**: Run `npx convex dev` to regenerate types after schema/function changes
+- **Route issues**: Delete `src/routeTree.gen.ts` and restart dev server to rebuild routes
