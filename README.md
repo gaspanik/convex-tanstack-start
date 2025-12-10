@@ -46,7 +46,7 @@ A full-stack TypeScript application combining **Convex** (real-time backend) wit
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/gaspanik/convex-tanstack.git
+git clone https://github.com/gaspanik/convex-tanstack-start.git
 cd convex-tanstack
 
 # 2. Install dependencies
